@@ -1,0 +1,3 @@
+static/vendors/*
+.idea/*
+db.sqlite3
