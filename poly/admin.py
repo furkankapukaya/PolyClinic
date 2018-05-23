@@ -1,3 +1,5 @@
 from django.contrib import admin
+from poly.models import Polyclinic
 
-# Register your models here.
+
+admin.site.register(Polyclinic)

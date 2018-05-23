@@ -1,9 +1,9 @@
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import *
 from django.urls import reverse_lazy
 
-from poly.forms.patient import PatientFrom
+from poly.forms.patient import PatientForm
 from poly.models import Patient
 
 
@@ -17,12 +17,14 @@ def patient_json(request):
     records_filtered = items.count()
     for item in items:
         data.append([
-            item.code,
+            item.id_number,
             item.name,
-            '<a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder">'
-            '</i> Görüntüle </a><a href="#" class="btn btn-info btn-xs">'
+            item.surname,
+            '<a href="/patient/detail/' + str(item.id) + '" class="btn btn-primary btn-xs"><i class="fa fa-folder">'
+            '</i> Görüntüle</a>'
+            '<a href="/patient/edit/' + str(item.id) + '" class="btn btn-info btn-xs">'
             '<i class="fa fa-pencil"></i> Düzenle </a>'
-            '<a href="{% url "web:patient-delete "' + str(item.id) + ' %}" class="btn btn-danger btn-xs">'
+            '<a href="/patient/delete/' + str(item.id) + '" class="btn btn-danger btn-xs">'
             '<i class="fa fa-trash-o"></i> Sil </a>'
         ])
     return JsonResponse({
@@ -38,21 +40,38 @@ class PatientList(ListView):
 
     def get_queryset(self):
         if self.request.is_ajax():
-            return JsonResponse(list(Patient.objects.all().values('code', 'name')), safe=False)
+            return JsonResponse(list(Patient.objects.all().values('id_number', 'name', 'surname')), safe=False)
         return None
+
+
+class PatientDetail(DetailView):
+    model = Patient
+    template_name = 'poly/patient/detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+class PatientEdit(UpdateView):
+    model = Patient
+    fields = '__all__'
+    template_name = 'poly/patient/edit.html'
+    success_url = reverse_lazy('poly:patient-list')
+
+
+def patient_delete(request, pk):
+    patient = Patient.objects.get(pk=pk)
+    if patient.delete():
+        return redirect('/patient/list')
 
 
 class PatientCreate(CreateView):
     model = Patient
     template_name = 'poly/patient/add.html'
-    form_class = PatientFrom
+    form_class = PatientForm
     success_url = reverse_lazy('poly:patient-list')
 
     def form_valid(self, form):
         return super(PatientCreate, self).form_valid(form)
 
-
-class PatientDelete(DeleteView):
-    model = Patient
-    template_name = 'poly/patient/patient_confirm_delete.html'
-    success_url = reverse_lazy('poly:patient-list')

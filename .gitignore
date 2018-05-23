@@ -1,3 +1,4 @@
-static/vendors/*
-.idea/*
+static/vendors
+.idea
 db.sqlite3
+/poly/static/vendors

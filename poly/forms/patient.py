@@ -1,10 +1,9 @@
-from django import forms
+from django.forms import ModelForm
 
 from poly.models import Patient
 
 
-class PatientFrom(forms.ModelForm):
+class PatientForm(ModelForm):
     class Meta:
         model = Patient
         fields = '__all__'
-

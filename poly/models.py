@@ -7,7 +7,7 @@ class Employee(models.Model):
     name = models.CharField(max_length=32)
     surname = models.CharField(max_length=32)
     id_number = models.CharField(max_length=16)
-    birthday = models.DateField()
+    birthday = models.TextField(max_length=16)
     ssn = models.CharField(max_length=16) # ssk no
 
 
@@ -33,7 +33,7 @@ class Patient(models.Model):
     name = models.CharField(max_length=32)
     surname = models.CharField(max_length=32)
     id_number = models.CharField(max_length=16)
-    birthday = models.DateField()
+    birthday = models.TextField(max_length=16)
     ssn = models.CharField(max_length=16) # ssk no
 
 
