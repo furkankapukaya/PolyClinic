@@ -6,7 +6,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Klinik Ekle
+                <h2>Klinik Düzenle
                 </h2>
 
                 <div class="clearfix"></div>
@@ -22,7 +22,6 @@
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <select class="form-control" name="polyclinic">
-                                <option>-------</option>
                                 {% for poly in polyclinics %}
                                     <option value="{{ poly.id }}">{{ poly.name }}</option>
                                 {% endfor %}
@@ -35,7 +34,7 @@
                                 class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" id="id_name" name="name" required="required"
+                            <input type="text" id="id_name" name="name"  value="{{ clinic.name }}" required="required"
                                    class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>

@@ -41,7 +41,7 @@
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="index.html" class="site_title"><i class="fa fa-plus-circle"></i> <span>Şifa Polikliniği</span></a>
+                    <a href="index.html" class="site_title"><i class="fa fa-hospital-o"></i> <span>Şifa Polikliniği</span></a>
                 </div>
 
                 <div class="clearfix"></div>
@@ -60,9 +60,13 @@
                                     class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="{% url 'poly:patient-list' %}">Hasta Listesi</a></li>
+                                    <li><a href="{% url 'poly:appointment-list' %}">Randevular</a></li>
+                                    <li><a href="{% url 'poly:treatment-list' %}">Tedaviler</a></li>
                                 </ul>
                             </li>
-                            <li><a href="{% url 'poly:clinic-list' %}"><i class="fa fa-edit"></i> Klinikler </a>
+                            <li><a href="{% url 'poly:doctor-list' %}"><i class="fa fa-stethoscope"></i> Doktorlar </a>
+                            </li>
+                            <li><a href="{% url 'poly:clinic-list' %}"><i class="fa fa-h-square"></i> Klinikler </a>
                             </li>
 
                         </ul>
